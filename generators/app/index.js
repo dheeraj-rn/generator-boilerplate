@@ -13,8 +13,8 @@ module.exports = class extends Generator {
     const prompts = [
       {
         type: 'confirm',
-        name: 'someAnswer',
-        message: 'Would you like to enable this option?',
+        name: 'install',
+        message: 'Would you like to install boilerplate?',
         default: true
       }
     ];
@@ -26,13 +26,69 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
+    
+    if(this.props.install){
+      this.fs.copy(
+        this.templatePath('_README.md'),
+        this.destinationPath('README.md')
+      );
+      this.fs.copy(
+        this.templatePath('_package.json'),
+        this.destinationPath('package.json')
+      );
+      this.fs.copy(
+        this.templatePath('_npmignore'),
+        this.destinationPath('.npmignore')
+      );
+      this.fs.copy(
+        this.templatePath('_gitignore'),
+        this.destinationPath('.gitignore')
+      );
+      this.fs.copy(
+        this.templatePath('_eslintrc.json'),
+        this.destinationPath('.eslintrc.json')
+      );
+  
+      this.fs.copy(
+        this.templatePath('test/index.js'),
+        this.destinationPath('test/index.js')
+      );
+  
+      this.fs.copy(
+        this.templatePath('server/index.js'),
+        this.destinationPath('server/index.js')
+      );
+      this.fs.copy(
+        this.templatePath('server/manifest.js'),
+        this.destinationPath('server/manifest.js')
+      );
+      this.fs.copy(
+        this.templatePath('server/.env-keep'),
+        this.destinationPath('server/.env-keep')
+      );
+  
+      this.fs.copy(
+        this.templatePath('lib/routes/.gitkeep'),
+        this.destinationPath('lib/routes/.gitkeep')
+      );
+      this.fs.copy(
+        this.templatePath('lib/.hc.js'),
+        this.destinationPath('lib/.hc.js')
+      );
+      this.fs.copy(
+        this.templatePath('lib/index.js'),
+        this.destinationPath('lib/index.js')
+      );
+    }
   }
 
   install() {
-    this.installDependencies();
+    if(this.props.install){
+      this.installDependencies({
+        npm: true,
+        bower: false,
+        yarn: false
+      });
+    }
   }
 };
