@@ -43,7 +43,7 @@ module.exports = class extends Generator {
         {
           name: 'Swagger API',
           value: 'includeSwagger',
-          checked: true
+          checked: false
         }
         /*{
           name: 'Modernizr',
