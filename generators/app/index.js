@@ -2,6 +2,7 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const path = require('path');
 
 module.exports = class extends Generator {
   prompting() {
@@ -11,6 +12,15 @@ module.exports = class extends Generator {
     );
 
     const prompts = [
+      {
+        type    : 'input',
+        name    : 'title',
+        message : 'Your generator name',
+        default: path.basename(process.cwd()),
+        validate: str => {
+          return str.length > 0;
+        }
+      },
       {
         type: 'confirm',
         name: 'install',
@@ -32,9 +42,10 @@ module.exports = class extends Generator {
         this.templatePath('_README.md'),
         this.destinationPath('README.md')
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('_package.json'),
-        this.destinationPath('package.json')
+        this.destinationPath('package.json'),
+        { title: this.props.title }
       );
       this.fs.copy(
         this.templatePath('_npmignore'),
