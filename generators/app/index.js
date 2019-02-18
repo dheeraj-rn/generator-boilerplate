@@ -27,12 +27,28 @@ module.exports = class extends Generator {
         name: 'install',
         message: 'Would you like to install Boilerplate with Swagger API?',
         default: true
+      },
+      {
+        type: 'checkbox',
+        name: 'database',
+        message: 'Which database would you like to use?',
+        choices: [{
+          name: 'PostgreSQL',
+          value: 'includePsql',
+          checked: true
+        }]
       }
     ];
 
     return this.prompt(prompts).then(props => {
       // To access props later use this.props.someAnswer;
       this.props = props;
+      this.log(this.props.database);
+      if(this.props.database.includes('includePsql')){
+        this.includePsql = true;
+      } else {
+        this.includePsql = false;
+      }
     });
   }
 
