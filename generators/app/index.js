@@ -50,10 +50,6 @@ module.exports = class extends Generator {
           title: this.props.title,
         }
       );
-      this.fs.copyTpl(
-        this.templatePath('server/manifest.js'),
-        this.destinationPath('server/manifest.js'),
-      );
       this.fs.copy(
         this.templatePath('_npmignore'),
         this.destinationPath('.npmignore')
@@ -76,7 +72,10 @@ module.exports = class extends Generator {
         this.templatePath('server/index.js'),
         this.destinationPath('server/index.js')
       );
-      
+      this.fs.copyTpl(
+        this.templatePath('server/manifest.js'),
+        this.destinationPath('server/manifest.js'),
+      );      
       this.fs.copy(
         this.templatePath('server/.env-keep'),
         this.destinationPath('server/.env-keep')
