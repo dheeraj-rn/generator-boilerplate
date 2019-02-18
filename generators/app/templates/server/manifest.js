@@ -7,6 +7,7 @@ const Inert = require('inert');
 const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
 const Package = require('../package.json');
+
 // Pull .env into process.env
 Dotenv.config({ path: `${__dirname}/.env` });
 
@@ -55,8 +56,8 @@ module.exports = new Confidence.Store({
                 plugin: HapiSwagger,
                 options: {
                     info: {
-                    title: 'API Documentation',
-                    version: Package.version
+                        title: 'API Documentation',
+                        version: Package.version
                     }
                 }
             }
