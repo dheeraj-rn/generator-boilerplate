@@ -43,7 +43,7 @@ module.exports = class extends Generator {
     return this.prompt(prompts).then(props => {
       // To access props later use this.props.someAnswer;
       this.props = props;
-      this.log(this.props.database);
+      //this.log(this.props.database);
       if(this.props.database.includes('includePsql')){
         this.includePsql = true;
       } else {
@@ -64,6 +64,7 @@ module.exports = class extends Generator {
         this.destinationPath('package.json'),
         {
           title: this.props.title,
+          psql : this.includePsql
         }
       );
       this.fs.copy(
@@ -91,10 +92,16 @@ module.exports = class extends Generator {
       this.fs.copyTpl(
         this.templatePath('server/manifest.js'),
         this.destinationPath('server/manifest.js'),
+        {
+          psql : this.includePsql
+        }
       );      
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('server/.env-keep'),
-        this.destinationPath('server/.env-keep')
+        this.destinationPath('server/.env-keep'),
+        {
+          psql : this.includePsql
+        }
       );
   
       this.fs.copy(
@@ -109,6 +116,25 @@ module.exports = class extends Generator {
         this.templatePath('lib/index.js'),
         this.destinationPath('lib/index.js')
       );
+
+      if(this.includePsql){
+        this.fs.copy(
+          this.templatePath('lib/migrations/.gitkeep'),
+          this.destinationPath('lib/migrations/.gitkeep')
+        );
+        this.fs.copy(
+          this.templatePath('lib/models/.gitkeep'),
+          this.destinationPath('lib/models/.gitkeep')
+        );
+        this.fs.copy(
+          this.templatePath('lib/plugins/schwifty.js'),
+          this.destinationPath('lib/plugins/schwifty.js')
+        );
+        this.fs.copy(
+          this.templatePath('knexfile.js'),
+          this.destinationPath('knexfile.js')
+        );
+      }
     }
   }
 
