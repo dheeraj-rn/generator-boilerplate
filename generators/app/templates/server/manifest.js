@@ -60,7 +60,29 @@ module.exports = new Confidence.Store({
                         version: Package.version
                     }
                 }
-            }
+            }<%_ if(psql == true) { _%>,
+            {
+                plugin: 'schwifty',
+                options: {
+                    $filter: 'NODE_ENV',
+                    $default: {},
+                    $base: {
+                        migrateOnStart: true,
+                        knex: {
+                            client: 'pg',
+                              connection: {
+                                host : process.env.PG_DB_HOST,
+                                user : process.env.PG_DB_USER,
+                                password : process.env.PG_DB_PASS,
+                                database : process.env.PG_DB_NAME
+                            }
+                        }
+                    },
+                    production: {
+                        migrateOnStart: false
+                    }
+                }
+            }<% } %>
         ]
     }
 });
