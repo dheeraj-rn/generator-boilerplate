@@ -3,6 +3,10 @@
 const Dotenv = require('dotenv');
 const Confidence = require('confidence');
 const Toys = require('toys');
+const Inert = require('inert');
+const Vision = require('vision');
+const HapiSwagger = require('hapi-swagger');
+const Package = require('../package.json');
 
 // Pull .env into process.env
 Dotenv.config({ path: `${__dirname}/.env` });
@@ -38,6 +42,23 @@ module.exports = new Confidence.Store({
                     $filter: { $env: 'NODE_ENV' },
                     $default: 'hpal-debug',
                     production: Toys.noop
+                }
+            },
+            {
+                plugin: Inert,
+                options: {}
+            },
+            {
+                plugin: Vision,
+                options: {}
+            },
+            {
+                plugin: HapiSwagger,
+                options: {
+                    info: {
+                        title: 'API Documentation',
+                        version: Package.version
+                    }
                 }
             }
         ]

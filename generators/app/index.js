@@ -1,4 +1,5 @@
 'use strict';
+
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
@@ -13,9 +14,9 @@ module.exports = class extends Generator {
 
     const prompts = [
       {
-        type    : 'input',
-        name    : 'title',
-        message : 'Your generator name',
+        type: 'input',
+        name: 'title',
+        message: 'Your project name',
         default: path.basename(process.cwd()),
         validate: str => {
           return str.length > 0;
@@ -24,7 +25,7 @@ module.exports = class extends Generator {
       {
         type: 'confirm',
         name: 'install',
-        message: 'Would you like to install boilerplate?',
+        message: 'Would you like to install Boilerplate with Swagger API?',
         default: true
       }
     ];
@@ -45,7 +46,9 @@ module.exports = class extends Generator {
       this.fs.copyTpl(
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
-        { title: this.props.title }
+        {
+          title: this.props.title,
+        }
       );
       this.fs.copy(
         this.templatePath('_npmignore'),
@@ -69,10 +72,10 @@ module.exports = class extends Generator {
         this.templatePath('server/index.js'),
         this.destinationPath('server/index.js')
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('server/manifest.js'),
-        this.destinationPath('server/manifest.js')
-      );
+        this.destinationPath('server/manifest.js'),
+      );      
       this.fs.copy(
         this.templatePath('server/.env-keep'),
         this.destinationPath('server/.env-keep')
