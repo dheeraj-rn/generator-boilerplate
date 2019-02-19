@@ -35,7 +35,7 @@ module.exports = class extends Generator {
         choices: [{
           name: 'PostgreSQL',
           value: 'includePsql',
-          checked: true
+          checked: false
         },
         {
           name: 'MongoDB',
