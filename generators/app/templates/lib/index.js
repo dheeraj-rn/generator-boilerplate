@@ -17,7 +17,7 @@ exports.plugin = {
         // { mongoURI: 'mongodb://localhost/test' }
         server.app.connection = Mongoose.createConnection(options.mongoURI, { useNewUrlParser: true });
         server.app.connection.once('open', () => {
-            
+
             console.log('connecting to database.');
         });
         //server.app.connection = Mongoose.createConnection('mongodb://localhost/test');
