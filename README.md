@@ -7,7 +7,10 @@ First, install [Yeoman](http://yeoman.io) and generator-boilerplate using [npm](
 
 ```bash
 npm install -g yo
-npm install -g generator-boilerplate
+git clone https://github.com/dheeraj-rn/generator-boilerplate.git
+cd generator-boilerplate
+npm install
+sudo npm link
 ```
 
 Then generate your new project:
