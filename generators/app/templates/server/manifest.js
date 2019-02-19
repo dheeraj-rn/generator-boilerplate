@@ -11,6 +11,9 @@ const Package = require('../package.json');
 // Pull .env into process.env
 Dotenv.config({ path: `${__dirname}/.env` });
 
+<%_ if(mongodb == true) { _%>
+const mongoURL = 'mongodb://' + process.env.MONGO_DB_USER + ':' + process.env.MONGO_DB_PASS + '@' + process.env.MONGO_DB_HOST + '/' + process.env.MONGO_DB_NAME; <%_ } _%>
+
 // Glue manifest as a confidence store
 module.exports = new Confidence.Store({
     server: {
@@ -35,7 +38,7 @@ module.exports = new Confidence.Store({
         plugins: [
             {
                 plugin: '../lib', // Main plugin
-                options: {}
+                options: { <% if(mongodb == true) { %> mongoURI: mongoURL <% } %> }
             },
             {
                 plugin: {
@@ -70,7 +73,7 @@ module.exports = new Confidence.Store({
                         migrateOnStart: true,
                         knex: {
                             client: 'pg',
-                              connection: {
+                            connection: {
                                 host : process.env.PG_DB_HOST,
                                 user : process.env.PG_DB_USER,
                                 password : process.env.PG_DB_PASS,
