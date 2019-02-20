@@ -4,7 +4,6 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const path = require('path');
-
 module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
@@ -151,16 +150,18 @@ module.exports = class extends Generator {
           this.destinationPath('lib/migrations/.gitkeep')
         );
         this.fs.copy(
-          this.templatePath('lib/models/.gitkeep'),
-          this.destinationPath('lib/models/.gitkeep')
-        );
-        this.fs.copy(
           this.templatePath('lib/plugins/schwifty.js'),
           this.destinationPath('lib/plugins/schwifty.js')
         );
         this.fs.copy(
           this.templatePath('knexfile.js'),
           this.destinationPath('knexfile.js')
+        );
+      }
+      if (this.includeMongodb || this.includePsql) {
+        this.fs.copy(
+          this.templatePath('lib/models/.gitkeep'),
+          this.destinationPath('lib/models/.gitkeep')
         );
       }
     }
