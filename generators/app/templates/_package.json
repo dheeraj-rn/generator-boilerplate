@@ -15,14 +15,19 @@
   "dependencies": {
     "boom": "7.x.x",
     "haute-couture": "3.x.x",
+    <%_ if(mongodb == true) { _%> 
+    "mongoose": "5.x.x",
+    <%_ } _%>
     "joi": "14.x.x" <%_ if(psql == true) { _%> ,
     "objection": "1.x.x",
     "schwifty": "4.x.x"
-  },
-  "peerDependencies": {
-    "knex": "0.16.x" 
     <%_ } _%>
   },
+  <%_ if(psql == true) { _%>
+  "peerDependencies": {
+    "knex": "0.16.x" 
+  },
+  <%_ } _%>
   "devDependencies": {
     "code": "5.x.x",
     "confidence": "4.x.x",

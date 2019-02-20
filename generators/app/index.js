@@ -35,7 +35,12 @@ module.exports = class extends Generator {
         choices: [{
           name: 'PostgreSQL',
           value: 'includePsql',
-          checked: true
+          checked: false
+        },
+        {
+          name: 'MongoDB',
+          value: 'includeMongodb',
+          checked: false
         }]
       }
     ];
@@ -43,11 +48,15 @@ module.exports = class extends Generator {
     return this.prompt(prompts).then(props => {
       // To access props later use this.props.someAnswer;
       this.props = props;
-      //this.log(this.props.database);
       if(this.props.database.includes('includePsql')){
         this.includePsql = true;
       } else {
         this.includePsql = false;
+      }
+      if(this.props.database.includes('includeMongodb')){
+        this.includeMongodb = true;
+      } else {
+        this.includeMongodb = false;
       }
     });
   }
@@ -63,8 +72,9 @@ module.exports = class extends Generator {
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
         {
-          title: this.props.title,
-          psql : this.includePsql
+          title : this.props.title,
+          psql : this.includePsql,
+          mongodb : this.includeMongodb
         }
       );
       this.fs.copy(
@@ -93,14 +103,16 @@ module.exports = class extends Generator {
         this.templatePath('server/manifest.js'),
         this.destinationPath('server/manifest.js'),
         {
-          psql : this.includePsql
+          psql : this.includePsql,
+          mongodb : this.includeMongodb
         }
       );      
       this.fs.copyTpl(
         this.templatePath('server/.env-keep'),
         this.destinationPath('server/.env-keep'),
         {
-          psql : this.includePsql
+          psql : this.includePsql,
+          mongodb : this.includeMongodb
         }
       );
   
@@ -108,13 +120,19 @@ module.exports = class extends Generator {
         this.templatePath('lib/routes/.gitkeep'),
         this.destinationPath('lib/routes/.gitkeep')
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('lib/.hc.js'),
-        this.destinationPath('lib/.hc.js')
+        this.destinationPath('lib/.hc.js'),
+        {
+          mongodb : this.includeMongodb
+        }
       );
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('lib/index.js'),
-        this.destinationPath('lib/index.js')
+        this.destinationPath('lib/index.js'),
+        {
+          mongodb : this.includeMongodb
+        }
       );
 
       if(this.includePsql){
