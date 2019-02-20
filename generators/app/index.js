@@ -54,14 +54,19 @@ module.exports = class extends Generator {
     return this.prompt(prompts).then(props => {
       // To access props later use this.props.someAnswer;
       this.props = props;
-      if (this.props.database.includes('includePsql')) {
-        this.includePsql = true;
+      if (typeof this.props.database != 'undefined') {
+        if (this.props.database.includes('includePsql')) {
+          this.includePsql = true;
+        } else {
+          this.includePsql = false;
+        }
+        if (this.props.database.includes('includeMongodb')) {
+          this.includeMongodb = true;
+        } else {
+          this.includeMongodb = false;
+        }
       } else {
         this.includePsql = false;
-      }
-      if (this.props.database.includes('includeMongodb')) {
-        this.includeMongodb = true;
-      } else {
         this.includeMongodb = false;
       }
     });
