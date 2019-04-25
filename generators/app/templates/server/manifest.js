@@ -8,7 +8,6 @@ const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
 const Package = require('../package.json');
 const HapiPluginHeader = require('hapi-plugin-header');
-const Crumb = require('crumb');
 
 // Pull .env into process.env
 Dotenv.config({ path: `${__dirname}/.env` });
@@ -73,13 +72,6 @@ module.exports = new Confidence.Store({
                 plugin: HapiPluginHeader,
                 options: {
                     'X-Dns-Prefetch-Control': 'off'
-                }
-            },
-            {
-                plugin: Crumb,
-                options: {
-                    key: 'crumb', //change to desired name
-                    restful: true
                 }
             }<%_ if(psql == true) { _%>,
             {
