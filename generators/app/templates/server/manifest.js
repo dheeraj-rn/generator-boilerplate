@@ -3,8 +3,8 @@
 const Dotenv = require('dotenv');
 const Confidence = require('confidence');
 const Toys = require('toys');
-const Inert = require('inert');
-const Vision = require('vision');
+const Inert = require('@hapi/inert');
+const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');
 const Package = require('../package.json');
 const HapiPluginHeader = require('hapi-plugin-header');
@@ -65,6 +65,13 @@ module.exports = new Confidence.Store({
                     info: {
                         title: 'API Documentation',
                         version: Package.version
+                    },
+                    securityDefinitions: {
+                        jwt: {
+                            type: 'apiKey',
+                            name: 'Authorization',
+                            in: 'header'
+                        }
                     }
                 }
             },
