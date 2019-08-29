@@ -67,11 +67,17 @@ module.exports = new Confidence.Store({
                         version: Package.version
                     },
                     securityDefinitions: {
-                        jwt: {
+                        Bearer: {
                             type: 'apiKey',
                             name: 'Authorization',
-                            in: 'header'
+                            in: 'header',
+                            'x-keyPrefix': 'Bearer '
                         }
+                    },
+                    security: [{ Bearer: [] }],
+                    deReference: false,
+                    cache: {
+                        expiresIn: 24 * 60 * 60 * 1000
                     }
                 }
             },
