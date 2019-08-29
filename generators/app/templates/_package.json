@@ -38,7 +38,7 @@
     "@hapi/eslint-plugin-hapi": "4.x.x",
     "@hapi/glue": "6.x.x",
     "@hapi/hapi": "18.x.x",
-    "@hapi/lab": "19.x.x",
+    "@hapi/lab": "20.x.x",
     "@hapi/inert": "5.x.x",
     "@hapi/vision": "5.x.x",
     "hapi-swagger": "10.x.x",
