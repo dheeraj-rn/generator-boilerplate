@@ -1,2 +1,5 @@
 *
 !lib/**
+lib/auth
+lib/plugins/**/*
+!lib/plugins/schwifty.js

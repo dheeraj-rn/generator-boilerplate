@@ -4,6 +4,6 @@
     "no-else-return": 0
   },
   "parserOptions": {
-    "ecmaVersion": 2019
+    "ecmaVersion": 2020
   }
 }
