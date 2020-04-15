@@ -9,7 +9,7 @@ describe('Test | Boilerplate with Swagger API and MongoDB', () => {
     return helpers.run(path.join(__dirname, '../generators/app')).withPrompts({
       name: 'generator-temp',
       install: true,
-      database: ['includeMongodb']
+      database: ['includeMongodb'],
     });
   });
 
@@ -27,7 +27,7 @@ describe('Test | Boilerplate with Swagger API and MongoDB', () => {
       'lib/routes/.gitkeep',
       'lib/.hc.js',
       'lib/index.js',
-      'lib/models/.gitkeep'
+      'lib/models/.gitkeep',
     ];
     assert.file(expected);
   });

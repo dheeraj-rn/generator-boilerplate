@@ -21,15 +21,15 @@ module.exports = class extends Generator {
         name: 'title',
         message: 'Your project name',
         default: path.basename(process.cwd()),
-        validate: str => {
+        validate: (str) => {
           return str.length > 0;
-        }
+        },
       },
       {
         type: 'confirm',
         name: 'install',
         message: 'Would you like to install Boilerplate with Swagger API?',
-        default: true
+        default: true,
       },
       {
         type: 'checkbox',
@@ -39,18 +39,18 @@ module.exports = class extends Generator {
           {
             name: 'PostgreSQL',
             value: 'includePsql',
-            checked: false
+            checked: false,
           },
           {
             name: 'MongoDB',
             value: 'includeMongodb',
-            checked: false
-          }
-        ]
-      }
+            checked: false,
+          },
+        ],
+      },
     ];
 
-    return this.prompt(prompts).then(props => {
+    return this.prompt(prompts).then((props) => {
       // To access props later use this.props.someAnswer;
       this.props = props;
       if (typeof this.props.database != 'undefined') {
@@ -83,7 +83,7 @@ module.exports = class extends Generator {
         {
           title: this.props.title,
           psql: this.includePsql,
-          mongodb: this.includeMongodb
+          mongodb: this.includeMongodb,
         }
       );
       this.fs.copy(
@@ -113,7 +113,7 @@ module.exports = class extends Generator {
         this.destinationPath('server/manifest.js'),
         {
           psql: this.includePsql,
-          mongodb: this.includeMongodb
+          mongodb: this.includeMongodb,
         }
       );
       this.fs.copyTpl(
@@ -121,7 +121,7 @@ module.exports = class extends Generator {
         this.destinationPath('server/.env-keep'),
         {
           psql: this.includePsql,
-          mongodb: this.includeMongodb
+          mongodb: this.includeMongodb,
         }
       );
 
@@ -133,14 +133,14 @@ module.exports = class extends Generator {
         this.templatePath('lib/.hc.js'),
         this.destinationPath('lib/.hc.js'),
         {
-          mongodb: this.includeMongodb
+          mongodb: this.includeMongodb,
         }
       );
       this.fs.copyTpl(
         this.templatePath('lib/index.js'),
         this.destinationPath('lib/index.js'),
         {
-          mongodb: this.includeMongodb
+          mongodb: this.includeMongodb,
         }
       );
 
@@ -172,7 +172,7 @@ module.exports = class extends Generator {
       this.installDependencies({
         npm: true,
         bower: false,
-        yarn: false
+        yarn: false,
       });
     }
   }

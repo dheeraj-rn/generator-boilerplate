@@ -9,7 +9,7 @@ describe('Test | Boilerplate with Swagger API and PostgreSQL', () => {
     return helpers.run(path.join(__dirname, '../generators/app')).withPrompts({
       name: 'generator-temp',
       install: true,
-      database: ['includePsql']
+      database: ['includePsql'],
     });
   });
 
@@ -30,7 +30,7 @@ describe('Test | Boilerplate with Swagger API and PostgreSQL', () => {
       'lib/migrations/.gitkeep',
       'lib/models/.gitkeep',
       'lib/plugins/schwifty.js',
-      'knexfile.js'
+      'knexfile.js',
     ];
     assert.file(expected);
   });

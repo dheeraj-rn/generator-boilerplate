@@ -8,7 +8,7 @@ describe('Test | Boilerplate with Swagger API', () => {
   beforeAll(() => {
     return helpers.run(path.join(__dirname, '../generators/app')).withPrompts({
       name: 'generator-temp',
-      install: true
+      install: true,
     });
   });
 
@@ -25,7 +25,7 @@ describe('Test | Boilerplate with Swagger API', () => {
       'server/.env-keep',
       'lib/routes/.gitkeep',
       'lib/.hc.js',
-      'lib/index.js'
+      'lib/index.js',
     ];
     assert.file(expected);
   });
